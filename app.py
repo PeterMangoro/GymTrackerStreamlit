@@ -54,27 +54,41 @@ st.markdown("""
 def load_workout_data(csv_path, file_mtime):
     """Load and preprocess workout data from CSV"""
     try:
-        df = pd.read_csv(csv_path)
-        
-        # Convert date column
-        df['Date'] = pd.to_datetime(df['Date'])
-        
-        # Parse sets x reps x weight data
-        df['Parsed_Sets'] = df['Sets x Reps x Weight'].apply(parse_sets_reps_weight)
-        
-        # Calculate total volume (sets * reps * weight)
-        df['Total_Volume'] = df['Parsed_Sets'].apply(calculate_total_volume)
-        
-        # Calculate average weight
-        df['Avg_Weight'] = df['Parsed_Sets'].apply(calculate_avg_weight)
-        
-        # Calculate total reps
-        df['Total_Reps'] = df['Parsed_Sets'].apply(calculate_total_reps)
-        
-        return df
+        try:
+            df = pd.read_csv(csv_path)
+        except pd.errors.ParserError:
+            # Retry with permissive parser and skip malformed lines
+            df = pd.read_csv(csv_path, engine='python', on_bad_lines='skip')
     except FileNotFoundError:
         st.error("workouts.csv file not found. Please ensure the file exists in the same directory.")
         return pd.DataFrame()
+    except Exception as e:
+        st.error(f"Error reading workouts.csv: {str(e)}")
+        return pd.DataFrame()
+    
+    # Validate required columns
+    required_columns = ['Date', 'Exercise', 'Sets x Reps x Weight', 'RPE', 'Muscle Group']
+    missing_columns = [col for col in required_columns if col not in df.columns]
+    if missing_columns:
+        st.error(f"workouts.csv is missing required columns: {', '.join(missing_columns)}")
+        return pd.DataFrame()
+    
+    # Convert date column
+    df['Date'] = pd.to_datetime(df['Date'])
+    
+    # Parse sets x reps x weight data
+    df['Parsed_Sets'] = df['Sets x Reps x Weight'].apply(parse_sets_reps_weight)
+    
+    # Calculate total volume (sets * reps * weight)
+    df['Total_Volume'] = df['Parsed_Sets'].apply(calculate_total_volume)
+    
+    # Calculate average weight
+    df['Avg_Weight'] = df['Parsed_Sets'].apply(calculate_avg_weight)
+    
+    # Calculate total reps
+    df['Total_Reps'] = df['Parsed_Sets'].apply(calculate_total_reps)
+    
+    return df
 
 def parse_sets_reps_weight(sets_string):
     """Parse sets x reps x weight string into structured data"""
