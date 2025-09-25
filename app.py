@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from datetime import datetime, timedelta
 import re
 import numpy as np
+import os
 
 # Page configuration
 st.set_page_config(
@@ -50,10 +51,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 @st.cache_data
-def load_workout_data():
+def load_workout_data(csv_path, file_mtime):
     """Load and preprocess workout data from CSV"""
     try:
-        df = pd.read_csv('workouts.csv')
+        df = pd.read_csv(csv_path)
         
         # Convert date column
         df['Date'] = pd.to_datetime(df['Date'])
@@ -159,14 +160,22 @@ def calculate_total_reps(sets_data):
 def main():
     st.markdown('<h1 class="main-header">💪 Gym Progress Tracker</h1>', unsafe_allow_html=True)
     
-    # Load data
-    df = load_workout_data()
+    # Load data with cache invalidation on file change
+    csv_path = 'workouts.csv'
+    try:
+        file_mtime = os.path.getmtime(csv_path)
+    except FileNotFoundError:
+        file_mtime = 0
+    df = load_workout_data(csv_path, file_mtime)
     
     if df.empty:
         st.stop()
     
     # Sidebar
     st.sidebar.title("Navigation")
+    if st.sidebar.button("Refresh data"):
+        st.cache_data.clear()
+        st.rerun()
     page = st.sidebar.selectbox("Choose a page", [
         "📊 Dashboard",
         "📈 Progress Tracking", 
@@ -378,6 +387,7 @@ def show_add_workout():
                     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
                     df.to_csv('workouts.csv', index=False)
                     st.success("Workout added successfully!")
+                    st.cache_data.clear()
                     st.rerun()
                 except Exception as e:
                     st.error(f"Error adding workout: {str(e)}")
