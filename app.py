@@ -25,9 +25,9 @@ def main():
     
     ### 📊 Available Features:
     
-    **📈 [Dashboard](Dashboard)** - Overview of your workout statistics and recent activity
+    **📈 [Dashboard](dashboard)** - Overview of your workout statistics and recent activity
     
-    **🏅 [Performance & Strength Insights](Performance_&_Strength_Insights)** - Advanced analytics including:
+    **🏅 [Performance & Strength Insights](performance_insights)** - Advanced analytics including:
     - 1RM calculations and progression tracking
     - Personal records (PRs) 
     - Weekly/monthly training volume analysis
@@ -35,15 +35,15 @@ def main():
     - Training intensity zones
     - Recovery and fatigue tracking
     
-    **📈 [Progress Tracking](Progress_Tracking)** - Detailed charts showing your progress over time
+    **📈 [Progress Tracking](progress_tracking)** - Detailed charts showing your progress over time
     
-    **🏋️ [Exercise Analysis](Exercise_Analysis)** - Deep dive into specific exercise performance
+    **🏋️ [Exercise Analysis](exercise_analysis)** - Deep dive into specific exercise performance
     
-    **📝 [Add Workout](Add_Workout)** - Log new workout sessions
+    **📝 [Add Workout](workout_management)** - Log new workout sessions
     
-    **📋 [Workout History](Workout_History)** - View and filter your complete workout history
+    **📋 [Workout History](workout_management)** - View and filter your complete workout history
     
-    **🤖 [AI Workout Recommendations](AI_Workout_Recommendations)** - Machine learning-powered workout suggestions
+    **🤖 [AI Workout Recommendations](ml_recommendations)** - Machine learning-powered workout suggestions
     
     ### 🚀 Getting Started:
     
