@@ -23,10 +23,41 @@ NAVIGATION_PAGES = [
 # Required CSV columns
 REQUIRED_COLUMNS = ['Date', 'Exercise', 'Sets x Reps x Weight', 'RPE', 'Muscle Group']
 
-# Muscle groups
-MUSCLE_GROUPS = [
-    "Chest", "Back", "Shoulders", "Arms", "Biceps", "Triceps", 
-    "Legs", "Rear Delts", "Core", "Other"
+# Detailed muscle groups (after compound group expansion)
+DETAILED_MUSCLE_GROUPS = [
+    "Back", "Biceps", "Calves", "Chest", "Forearms", "Glutes", 
+    "Hamstrings", "Legs", "Quads", "Rear Delts", "Recovery", 
+    "Shoulders", "Traps", "Triceps"
+]
+
+# Muscle group mapping for analytics (detailed -> grouped)
+MUSCLE_GROUP_MAPPING = {
+    # Leg muscles grouped together
+    "Quads": "Legs",
+    "Glutes": "Legs", 
+    "Hamstrings": "Legs",
+    "Calves": "Legs",
+    
+    # Arm muscles grouped together
+    "Biceps": "Arms",
+    "Triceps": "Arms",
+    "Forearms": "Arms",
+    
+    # Shoulder muscles grouped together
+    "Shoulders": "Shoulders",
+    "Rear Delts": "Shoulders",
+    "Traps": "Shoulders",
+    
+    # Keep these as individual groups
+    "Back": "Back",
+    "Chest": "Chest",
+    "Legs": "Legs",  # Original legs category
+    "Recovery": "Recovery"
+}
+
+# Grouped muscle groups for analytics
+GROUPED_MUSCLE_GROUPS = [
+    "Back", "Chest", "Shoulders", "Arms", "Legs", "Recovery"
 ]
 
 # Compound lifts for 1RM tracking

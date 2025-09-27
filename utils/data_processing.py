@@ -34,6 +34,12 @@ def load_workout_data(csv_path, file_mtime):
     # Convert date column
     df['Date'] = pd.to_datetime(df['Date'])
     
+    # Expand compound muscle groups into separate rows
+    df = expand_compound_muscle_groups(df)
+    
+    # Add grouped muscle groups for analytics
+    df = add_grouped_muscle_groups(df)
+    
     # Parse sets x reps x weight data
     df['Parsed_Sets'] = df['Sets x Reps x Weight'].apply(parse_sets_reps_weight)
     
@@ -170,6 +176,49 @@ def get_max_weight_and_reps(sets_data):
             max_reps_at_max_weight = max(max_reps_at_max_weight, set_data['reps'])
     
     return max_weight, max_reps_at_max_weight
+
+
+def expand_compound_muscle_groups(df):
+    """Expand compound muscle groups into separate rows for each muscle group"""
+    expanded_rows = []
+    
+    for _, row in df.iterrows():
+        muscle_group = row['Muscle Group']
+        
+        # Check if it's a compound muscle group (contains '/' or parentheses with '/')
+        if '/' in muscle_group:
+            # Handle parentheses case like "Posterior Chain (Glutes/Hamstrings/Back)"
+            if '(' in muscle_group and ')' in muscle_group:
+                # Extract the part inside parentheses
+                start = muscle_group.find('(') + 1
+                end = muscle_group.find(')')
+                groups_part = muscle_group[start:end]
+                individual_groups = [group.strip() for group in groups_part.split('/')]
+            else:
+                # Regular case like "Back/Biceps"
+                individual_groups = [group.strip() for group in muscle_group.split('/')]
+            
+            # Create a separate row for each muscle group
+            for group in individual_groups:
+                new_row = row.copy()
+                new_row['Muscle Group'] = group
+                expanded_rows.append(new_row)
+        else:
+            # Single muscle group, keep as is
+            expanded_rows.append(row)
+    
+    return pd.DataFrame(expanded_rows)
+
+
+def add_grouped_muscle_groups(df):
+    """Add grouped muscle group column for analytics"""
+    from config import MUSCLE_GROUP_MAPPING
+    
+    df['Grouped_Muscle_Group'] = df['Muscle Group'].map(MUSCLE_GROUP_MAPPING)
+    # Handle any unmapped groups
+    df['Grouped_Muscle_Group'] = df['Grouped_Muscle_Group'].fillna(df['Muscle Group'])
+    
+    return df
 
 
 def get_file_mtime(csv_path):

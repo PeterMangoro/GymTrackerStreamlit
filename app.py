@@ -60,7 +60,7 @@ def main():
         st.metric("📊 Total Features", "6")
     
     with col2:
-        st.metric("🏋️ Exercise Tracking", "Unlimited")
+        st.metric("🏋️ Workout Days", "Tracked")
     
     with col3:
         st.metric("📈 Analytics", "Advanced")
