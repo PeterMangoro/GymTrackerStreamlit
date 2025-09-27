@@ -57,12 +57,37 @@ with tab1:
                 max_weight_idx = exercise_data['Max_Weight'].idxmax()
                 max_volume_idx = exercise_data['Total_Volume'].idxmax()
                 
+                # Handle cases where multiple rows have the same max values
+                max_weight_value = exercise_data.loc[max_weight_idx, 'Max_Weight']
+                max_volume_value = exercise_data.loc[max_volume_idx, 'Total_Volume']
+                max_weight_date = exercise_data.loc[max_weight_idx, 'Date']
+                max_volume_date = exercise_data.loc[max_volume_idx, 'Date']
+                
+                # Convert to single values, handling both single values and Series
+                if hasattr(max_weight_value, 'iloc'):
+                    max_weight_value = max_weight_value.iloc[0]
+                if hasattr(max_volume_value, 'iloc'):
+                    max_volume_value = max_volume_value.iloc[0]
+                
+                # Convert to string format, handling both single values and Series
+                if hasattr(max_weight_date, 'strftime'):
+                    max_weight_date_str = max_weight_date.strftime('%Y-%m-%d')
+                else:
+                    # If it's a Series, take the first value
+                    max_weight_date_str = str(max_weight_date.iloc[0])[:10]
+                
+                if hasattr(max_volume_date, 'strftime'):
+                    max_volume_date_str = max_volume_date.strftime('%Y-%m-%d')
+                else:
+                    # If it's a Series, take the first value
+                    max_volume_date_str = str(max_volume_date.iloc[0])[:10]
+                
                 pr_data.append({
                     'Exercise': exercise,
-                    'Max Weight (lbs)': exercise_data.loc[max_weight_idx, 'Max_Weight'],
-                    'Max Volume (lbs)': exercise_data.loc[max_volume_idx, 'Total_Volume'],
-                    'Max Weight Date': exercise_data.loc[max_weight_idx, 'Date'].strftime('%Y-%m-%d'),
-                    'Max Volume Date': exercise_data.loc[max_volume_idx, 'Date'].strftime('%Y-%m-%d'),
+                    'Max Weight (lbs)': max_weight_value,
+                    'Max Volume (lbs)': max_volume_value,
+                    'Max Weight Date': max_weight_date_str,
+                    'Max Volume Date': max_volume_date_str,
                     'Current 1RM': exercise_data['Estimated_1RM'].max()
                 })
         
@@ -141,24 +166,23 @@ with tab3:
     total_volume = muscle_volume.sum()
     muscle_percentage = (muscle_volume / total_volume * 100).round(1)
     
-    # Check for imbalances
-    warnings = []
+    # Create remarks for each muscle group
+    remarks = []
     for muscle, percentage in muscle_percentage.items():
         if percentage > HIGH_VOLUME_THRESHOLD:
-            warnings.append(f"⚠️ {muscle}: {percentage}% - Very high training volume")
+            remarks.append("⚠️ Very high training volume")
         elif percentage < LOW_VOLUME_THRESHOLD:
-            warnings.append(f"⚠️ {muscle}: {percentage}% - Low training volume")
+            remarks.append("⚠️ Low training volume")
+        elif percentage > 25:
+            remarks.append("✅ Good training volume")
+        else:
+            remarks.append("✅ Balanced training volume")
     
-    if warnings:
-        for warning in warnings:
-            st.warning(warning)
-    else:
-        st.success("✅ Muscle group training appears balanced")
-    
-    # Display muscle group percentages
+    # Display muscle group percentages with remarks
     muscle_df = pd.DataFrame({
         'Muscle Group': muscle_percentage.index,
-        'Training Volume %': muscle_percentage.values
+        'Training Volume %': muscle_percentage.values,
+        'Remarks': remarks
     }).sort_values('Training Volume %', ascending=False)
     
     st.dataframe(muscle_df, width='stretch')

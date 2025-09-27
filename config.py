@@ -63,7 +63,8 @@ GROUPED_MUSCLE_GROUPS = [
 # Compound lifts for 1RM tracking
 COMPOUND_LIFTS = [
     'squat', 'bench', 'deadlift', 'overhead press', 'row', 
-    'barbell row', 'bench press', 'squat'
+    'barbell row', 'bench press', 'squat', 'incline', 'press',
+    'dumbbell press', 'incline bench', 'incline press'
 ]
 
 # RPE categories

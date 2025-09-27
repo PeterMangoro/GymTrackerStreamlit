@@ -17,7 +17,7 @@ Date,Exercise,Sets x Reps x Weight,RPE,Muscle Group
 2025-09-18,Lunges,3x20x25lb dumbbell,8,Legs
 2025-09-18,Dumbbell Bicep Curl,3x10x30lb,8,Biceps
 2025-09-18,Cable Tricep Pushdown,3x12x45lb,8,Triceps
-2025-09-19,Dumbbell Incline Bench,12x30lb;12x40lb;12x50lb,8,Chest
+2025-09-19,Incline Dumbbell Press,1x12x30lb;1x12x40lb;1x12x50lb,8,Chest
 2025-09-19,Arnold Press,3x10x30lb dumbbell,8,Shoulders
 2025-09-19,Close Grip Bench Press,3x10x90lb,8,Triceps
 2025-09-19,Upright Rows,3x10x45lb kettlebell,8,Shoulders
@@ -58,11 +58,11 @@ Date,Exercise,Sets x Reps x Weight,RPE,Muscle Group
 2025-09-27,Walking Lunges,3x20x30lb DB,8,Legs
 2025-09-27,Leg Curl (Machine),3x6x70lb,9,Hamstrings
 2025-09-27,Calf Raises,4x12x70lb,8,Calves
-2025-09-28,Pull Ups,3x12,8,Back
+2025-09-28,Pull Ups,1x3x12,8,Back
 2025-09-28,Flat Barbell Bench Press,10x45lb/side;8x55lb/side;8x65lb/side;8x65lb/side,8,Chest
-2025-09-28,Incline Dumbbell Press,12x40lb;3x50lb,8,Chest
+2025-09-28,Incline Dumbbell Press,1x12x40lb;1x3x50lb,8,Chest
 2025-09-28,Arnold Press,1x12x30lb;1x12x35lb;1x12x35lb,8,Shoulders
-2025-09-28,Upright Rows,12x40lb;12x60lb;12x60lb kettle,8,Shoulders/Traps
+2025-09-28,Upright Rows,1x12x40lb;1x12x60lb;1x12x60lb kettle,8,Shoulders/Traps
 2025-09-28,Close Grip Incline Bench Press,3x10x45lb/side,10,Chest/Triceps
 2025-09-28,Deadlift,3x25lb/side,6,Back/Legs
-2025-09-28,Dips,3x12,5,Chest/Triceps
+2025-09-28,Dips,1x3x12,5,Chest/Triceps

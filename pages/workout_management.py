@@ -5,7 +5,7 @@ Workout Management page for the Gym Progress Tracker app.
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-from config import MUSCLE_GROUPS
+from config import DETAILED_MUSCLE_GROUPS
 from utils.data_processing import load_workout_data, get_file_mtime
 
 # Load data
@@ -21,7 +21,7 @@ with st.form("add_workout_form"):
     with col1:
         date = st.date_input("Date", value=datetime.now().date())
         exercise = st.text_input("Exercise")
-        muscle_group = st.selectbox("Muscle Group", MUSCLE_GROUPS)
+        muscle_group = st.selectbox("Muscle Group", ['All'] + DETAILED_MUSCLE_GROUPS)
     
     with col2:
         sets_reps_weight = st.text_area(
