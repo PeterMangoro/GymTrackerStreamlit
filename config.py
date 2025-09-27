@@ -2,6 +2,13 @@
 Configuration settings for the Gym Progress Tracker app.
 """
 
+import warnings
+import os
+
+# Suppress all warnings globally
+warnings.filterwarnings('ignore')
+os.environ['PYTHONWARNINGS'] = 'ignore'
+
 # Page configuration
 PAGE_CONFIG = {
     "page_title": "Gym Progress Tracker",

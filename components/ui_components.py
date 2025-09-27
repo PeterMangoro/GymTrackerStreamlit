@@ -2,11 +2,7 @@
 Shared UI components for the Gym Progress Tracker app.
 """
 
-import warnings
 import streamlit as st
-
-# Suppress warnings globally
-warnings.filterwarnings('ignore')
 
 
 def render_css():

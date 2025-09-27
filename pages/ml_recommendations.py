@@ -566,7 +566,7 @@ def show_training_patterns(df):
         title="Weekly Training Volume Trend",
         labels={'x': 'Week', 'y': 'Total Volume (lbs)'}
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, config={'displayModeBar': False})
     
     # RPE distribution
     fig_rpe = px.histogram(
@@ -574,7 +574,7 @@ def show_training_patterns(df):
         title="RPE Distribution",
         nbins=10
     )
-    st.plotly_chart(fig_rpe, use_container_width=True)
+    st.plotly_chart(fig_rpe, config={'displayModeBar': False})
 
 
 def show_exercise_preferences(df):
@@ -589,7 +589,7 @@ def show_exercise_preferences(df):
         title="Top 10 Most Frequent Exercises"
     )
     fig.update_layout(yaxis={'categoryorder': 'total ascending'})
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, config={'displayModeBar': False})
     
     # Exercise variety over time
     df['Date'] = pd.to_datetime(df['Date'])
@@ -602,7 +602,7 @@ def show_exercise_preferences(df):
         title="Exercise Variety Over Time",
         labels={'x': 'Month', 'y': 'Number of Unique Exercises'}
     )
-    st.plotly_chart(fig_variety, use_container_width=True)
+    st.plotly_chart(fig_variety, config={'displayModeBar': False})
 
 
 def show_muscle_balance_analysis(df):
@@ -617,7 +617,7 @@ def show_muscle_balance_analysis(df):
         labels={'x': 'Muscle Group', 'y': 'Total Volume (lbs)'}
     )
     fig_volume.update_layout(xaxis_tickangle=-45)
-    st.plotly_chart(fig_volume, use_container_width=True)
+    st.plotly_chart(fig_volume, config={'displayModeBar': False})
     
     # Muscle group frequency
     muscle_frequency = df['Muscle Group'].value_counts()
@@ -629,7 +629,7 @@ def show_muscle_balance_analysis(df):
         labels={'x': 'Muscle Group', 'y': 'Number of Workouts'}
     )
     fig_freq.update_layout(xaxis_tickangle=-45)
-    st.plotly_chart(fig_freq, use_container_width=True)
+    st.plotly_chart(fig_freq, config={'displayModeBar': False})
 
 
 def show_workout_sequences(df):
@@ -647,7 +647,7 @@ def show_workout_sequences(df):
         y=daily_patterns.values,
         title="Workout Frequency by Day of Week"
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, config={'displayModeBar': False})
     
     # Rest day patterns
     df_sorted = df.sort_values('Date')

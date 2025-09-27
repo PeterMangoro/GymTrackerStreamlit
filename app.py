@@ -2,13 +2,9 @@
 Gym Progress Tracker - Main Application
 """
 
-import warnings
 import streamlit as st
 from config import PAGE_CONFIG
 from components.ui_components import render_css
-
-# Suppress warnings
-warnings.filterwarnings('ignore')
 
 
 def main():
