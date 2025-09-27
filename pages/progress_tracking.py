@@ -52,7 +52,7 @@ if not filtered_df.empty:
     
     fig_volume = px.line(daily_volume, x='Date', y='Total_Volume', 
                        title="Daily Training Volume")
-    st.plotly_chart(fig_volume, width='stretch')
+    st.plotly_chart(fig_volume, config={'displayModeBar': False})
     
     # RPE over time
     st.subheader("RPE Over Time")
@@ -60,7 +60,7 @@ if not filtered_df.empty:
     
     fig_rpe = px.line(daily_rpe, x='Date', y='RPE', 
                      title="Average RPE Over Time")
-    st.plotly_chart(fig_rpe, width='stretch')
+    st.plotly_chart(fig_rpe, config={'displayModeBar': False})
     
     # Weight progression
     if selected_exercise != 'All':
@@ -70,4 +70,4 @@ if not filtered_df.empty:
         if not weight_data.empty:
             fig_weight = px.line(weight_data, x='Date', y='Avg_Weight',
                                title=f"Average Weight Progression - {selected_exercise}")
-            st.plotly_chart(fig_weight, width='stretch')
+            st.plotly_chart(fig_weight, config={'displayModeBar': False})

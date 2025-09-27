@@ -62,4 +62,4 @@ else:
     title = "Workouts by Muscle Group (Detailed)"
 
 fig_bar = px.bar(x=muscle_counts.index, y=muscle_counts.values, title=title)
-st.plotly_chart(fig_bar, width='stretch')
+st.plotly_chart(fig_bar, config={'displayModeBar': False})

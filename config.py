@@ -5,9 +5,26 @@ Configuration settings for the Gym Progress Tracker app.
 import warnings
 import os
 
-# Suppress all warnings globally
+# Suppress all warnings and errors globally
 warnings.filterwarnings('ignore')
 os.environ['PYTHONWARNINGS'] = 'ignore'
+
+# Suppress specific error types
+import sys
+import logging
+
+# Suppress specific warnings and errors
+warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=PendingDeprecationWarning)
+
+# Suppress logging errors
+logging.getLogger().setLevel(logging.ERROR)
+
+# Suppress specific Streamlit warnings
+os.environ['STREAMLIT_SERVER_HEADLESS'] = 'true'
+os.environ['STREAMLIT_BROWSER_GATHER_USAGE_STATS'] = 'false'
 
 # Page configuration
 PAGE_CONFIG = {

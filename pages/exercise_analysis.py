@@ -74,4 +74,4 @@ if not exercise_data.empty:
         hovermode='x unified'
     )
     
-    st.plotly_chart(fig, width='stretch')
+    st.plotly_chart(fig, config={'displayModeBar': False})

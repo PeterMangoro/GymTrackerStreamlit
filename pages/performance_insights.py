@@ -45,7 +45,7 @@ with tab1:
         if not daily_1rm.empty:
             fig_1rm = px.line(daily_1rm, x='Date', y='Estimated_1RM', color='Exercise',
                             title="Estimated 1RM Progression for Compound Lifts")
-            st.plotly_chart(fig_1rm, width='stretch')
+            st.plotly_chart(fig_1rm, config={'displayModeBar': False})
         
         # Personal Records Table
         st.subheader("Personal Records (PRs)")
@@ -108,7 +108,7 @@ with tab2:
         fig_weekly = px.bar(weekly_volume, x='Week_Start', y='Total_Volume', color='Muscle Group',
                           title="Weekly Training Volume by Muscle Group")
         fig_weekly.update_xaxes(tickangle=45)
-        st.plotly_chart(fig_weekly, width='stretch')
+        st.plotly_chart(fig_weekly, config={'displayModeBar': False})
     
     # Workout Frequency Heatmap
     st.subheader("Workout Frequency Heatmap")
@@ -143,7 +143,7 @@ with tab2:
             title="Workout Frequency Calendar Heatmap",
             color_continuous_scale='Blues'
         )
-        st.plotly_chart(fig_heatmap, width='stretch')
+        st.plotly_chart(fig_heatmap, config={'displayModeBar': False})
     
     # Weekly RPE Average
     st.subheader("Weekly RPE Average")
@@ -156,7 +156,7 @@ with tab2:
         fig_rpe.add_hline(y=HIGH_RPE_THRESHOLD, line_dash="dash", line_color="red", 
                          annotation_text="High RPE Warning Line")
         fig_rpe.update_xaxes(tickangle=45)
-        st.plotly_chart(fig_rpe, width='stretch')
+        st.plotly_chart(fig_rpe, config={'displayModeBar': False})
 
 with tab3:
     st.subheader("🧠 Muscle Group Imbalance Alert")
@@ -199,7 +199,7 @@ with tab3:
         title="Most Frequently Trained Exercises"
     )
     fig_top_exercises.update_layout(yaxis={'categoryorder': 'total ascending'})
-    st.plotly_chart(fig_top_exercises, width='stretch')
+    st.plotly_chart(fig_top_exercises, config={'displayModeBar': False})
     
     # Undertrained Exercises
     st.subheader("Undertrained Exercises")
@@ -232,7 +232,7 @@ with tab4:
     
     fig_intensity = px.bar(x=rpe_counts.index, y=rpe_counts.values,
                           title="Training Intensity Distribution")
-    st.plotly_chart(fig_intensity, width='stretch')
+    st.plotly_chart(fig_intensity, config={'displayModeBar': False})
     
     # Fatigue & Recovery Score
     st.subheader("Fatigue & Recovery Score")
