@@ -25,9 +25,9 @@ def main():
     
     ### 📊 Available Features:
     
-    **📈 Dashboard** - Overview of your workout statistics and recent activity
+    **📈 [Dashboard](Dashboard)** - Overview of your workout statistics and recent activity
     
-    **🏅 Performance & Strength Insights** - Advanced analytics including:
+    **🏅 [Performance & Strength Insights](Performance_&_Strength_Insights)** - Advanced analytics including:
     - 1RM calculations and progression tracking
     - Personal records (PRs) 
     - Weekly/monthly training volume analysis
@@ -35,13 +35,15 @@ def main():
     - Training intensity zones
     - Recovery and fatigue tracking
     
-    **📈 Progress Tracking** - Detailed charts showing your progress over time
+    **📈 [Progress Tracking](Progress_Tracking)** - Detailed charts showing your progress over time
     
-    **🏋️ Exercise Analysis** - Deep dive into specific exercise performance
+    **🏋️ [Exercise Analysis](Exercise_Analysis)** - Deep dive into specific exercise performance
     
-    **📝 Add Workout** - Log new workout sessions
+    **📝 [Add Workout](Add_Workout)** - Log new workout sessions
     
-    **📋 Workout History** - View and filter your complete workout history
+    **📋 [Workout History](Workout_History)** - View and filter your complete workout history
+    
+    **🤖 [AI Workout Recommendations](AI_Workout_Recommendations)** - Machine learning-powered workout suggestions
     
     ### 🚀 Getting Started:
     
@@ -49,6 +51,7 @@ def main():
     2. **View your dashboard** to see your progress overview
     3. **Explore performance insights** to understand your training patterns
     4. **Track your progress** over time with detailed charts
+    5. **Get AI recommendations** for personalized workout plans
     
     Use the navigation menu on the left to explore all features!
     """)
@@ -57,13 +60,13 @@ def main():
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric("📊 Total Features", "6")
+        st.metric("📊 Total Features", "7")
     
     with col2:
         st.metric("🏋️ Workout Days", "Tracked")
     
     with col3:
-        st.metric("📈 Analytics", "Advanced")
+        st.metric("🤖 AI Features", "ML-Powered")
 
 
 if __name__ == "__main__":
