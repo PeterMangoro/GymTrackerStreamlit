@@ -21,83 +21,14 @@ if df.empty:
 st.header("🏅 Performance & Strength Insights")
 
 # Create tabs for different insight categories
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "🏅 1RM & PRs", 
-    "📅 Weekly/Monthly", 
-    "🧠 Progress & Balance", 
-    "⚡ Advanced Features",
-    "📊 Set & Rep PRs"
+tab1, tab2, tab3, tab4 = st.tabs([
+    "🧠 Progress & Balance",
+    "📊 Set & Rep PRs",
+    "📅 Weekly/Monthly",
+    "⚡ Advanced Features"
 ])
 
-with tab1:
-    st.subheader("🏅 Estimated 1RM (One Rep Max)")
-    
-    # Filter for compound lifts
-    compound_data = df[df['Exercise'].str.lower().str.contains('|'.join(COMPOUND_LIFTS), case=False, na=False)]
-    
-    if not compound_data.empty:
-        # 1RM progression chart
-        st.subheader("1RM Progression Over Time")
-        
-        # Group by exercise and date to get daily max 1RM
-        daily_1rm = compound_data.groupby(['Exercise', 'Date'])['Estimated_1RM'].max().reset_index()
-        
-        if not daily_1rm.empty:
-            fig_1rm = px.line(daily_1rm, x='Date', y='Estimated_1RM', color='Exercise',
-                            title="Estimated 1RM Progression for Compound Lifts")
-            st.plotly_chart(fig_1rm, config={'displayModeBar': False})
-        
-        # Personal Records Table
-        st.subheader("Personal Records (PRs)")
-        
-        pr_data = []
-        for exercise in compound_data['Exercise'].unique():
-            exercise_data = compound_data[compound_data['Exercise'] == exercise]
-            if not exercise_data.empty:
-                max_weight_idx = exercise_data['Max_Weight'].idxmax()
-                max_volume_idx = exercise_data['Total_Volume'].idxmax()
-                
-                # Handle cases where multiple rows have the same max values
-                max_weight_value = exercise_data.loc[max_weight_idx, 'Max_Weight']
-                max_volume_value = exercise_data.loc[max_volume_idx, 'Total_Volume']
-                max_weight_date = exercise_data.loc[max_weight_idx, 'Date']
-                max_volume_date = exercise_data.loc[max_volume_idx, 'Date']
-                
-                # Convert to single values, handling both single values and Series
-                if hasattr(max_weight_value, 'iloc'):
-                    max_weight_value = max_weight_value.iloc[0]
-                if hasattr(max_volume_value, 'iloc'):
-                    max_volume_value = max_volume_value.iloc[0]
-                
-                # Convert to string format, handling both single values and Series
-                if hasattr(max_weight_date, 'strftime'):
-                    max_weight_date_str = max_weight_date.strftime('%Y-%m-%d')
-                else:
-                    # If it's a Series, take the first value
-                    max_weight_date_str = str(max_weight_date.iloc[0])[:10]
-                
-                if hasattr(max_volume_date, 'strftime'):
-                    max_volume_date_str = max_volume_date.strftime('%Y-%m-%d')
-                else:
-                    # If it's a Series, take the first value
-                    max_volume_date_str = str(max_volume_date.iloc[0])[:10]
-                
-                pr_data.append({
-                    'Exercise': exercise,
-                    'Max Weight (lbs)': max_weight_value,
-                    'Max Volume (lbs)': max_volume_value,
-                    'Max Weight Date': max_weight_date_str,
-                    'Max Volume Date': max_volume_date_str,
-                    'Current 1RM': exercise_data['Estimated_1RM'].max()
-                })
-        
-        if pr_data:
-            pr_df = pd.DataFrame(pr_data)
-            st.dataframe(pr_df, width='stretch')
-    else:
-        st.info("No compound lift data found. Add workouts with exercises like squat, bench press, deadlift, etc.")
-
-with tab2:
+with tab3:
     st.subheader("📅 Weekly Training Volume by Muscle Group")
     
     # Create weekly volume by muscle group using string dates instead of Period
@@ -158,7 +89,7 @@ with tab2:
         fig_rpe.update_xaxes(tickangle=45)
         st.plotly_chart(fig_rpe, config={'displayModeBar': False})
 
-with tab3:
+with tab1:
     st.subheader("🧠 Muscle Group Imbalance Alert")
     
     # Calculate training volume percentage by muscle group
@@ -257,7 +188,7 @@ with tab4:
     st.subheader("Recent RPE Trend")
     st.dataframe(recent_rpe, width='stretch')
 
-with tab5:
+with tab2:
     st.subheader("📊 Set & Rep Personal Records")
     
     # Find set & rep PRs for each exercise

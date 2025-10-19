@@ -28,7 +28,6 @@ def main():
     **📈 [Dashboard](dashboard)** - Overview of your workout statistics and recent activity
     
     **🏅 [Performance & Strength Insights](performance_insights)** - Advanced analytics including:
-    - 1RM calculations and progression tracking
     - Personal records (PRs) 
     - Weekly/monthly training volume analysis
     - Muscle group balance monitoring
